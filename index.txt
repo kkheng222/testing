@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transparent LCDx Advertisement</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    #width:100vw;
+    #height:100vh;
+    #overflow:hidden;
+    # background:rgba(0,0,0,0);
+    # background:white;
+    #font-family:Arial,sans-serif;
+}
+
+#videoContainer{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+}
+
+#backgroundVideo{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+#overlay{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    text-shadow:2px 2px 10px black;
+}
+
+h1{
+    font-size:4rem;
+    margin-bottom:20px;
+}
+
+p{
+    font-size:1.5rem;
+    margin-bottom:30px;
+}
+
+.buttonPanel{
+    display:flex;
+    gap:20px;
+}
+
+.touchButton{
+    padding:20px 40px;
+    font-size:1.2rem;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.product{
+    background:#0078ff;
+    color:white;
+}
+
+.info{
+    background:#00aa55;
+    color:white;
+}
+
+#popup{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:70%;
+    max-width:700px;
+    background:rgba(0,0,0,0.85);
+    color:white;
+    padding:30px;
+    border-radius:15px;
+    display:none;
+}
+
+.closeBtn{
+    margin-top:20px;
+    padding:12px 25px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div id="videoContainer">
+
+<video
+id="backgroundVideo"
+autoplay
+muted
+loop
+playsinline>
+
+<source src="https://your-server.com/videos/advertisement.mp4"
+type="video/mp4">
+
+</video>
+
+<div id="overlay">
+
+<h1>YOUR BRAND testing</h1>
+
+<p>Touch the screen to learn more</p>
+
+<div class="buttonPanel">
+
+<button
+class="touchButton product"
+onclick="showProduct()">
+View Product
+</button>
+
+<button
+class="touchButton info"
+onclick="showInfo()">
+Company Info
+</button>
+
+</div>
+
+</div>
+
+<div id="popup">
+
+<h2 id="popupTitle"></h2>
+
+<p id="popupText"></p>
+
+<button
+class="closeBtn"
+onclick="closePopup()">
+Close
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+function showProduct(){
+
+document.getElementById('popupTitle').innerHTML =
+'Featured Product';
+
+document.getElementById('popupText').innerHTML =
+'This area can show product details, images, pricing, specifications, or QR codes.';
+
+document.getElementById('popup').style.display='block';
+
+}
+
+function showInfo(){
+
+document.getElementById('popupTitle').innerHTML =
+'Company Information';
+
+document.getElementById('popupText').innerHTML =
+'Welcome to our interactive transparent LCD experience.';
+
+document.getElementById('popup').style.display='block';
+
+}
+
+function closePopup(){
+
+document.getElementById('popup').style.display='none';
+
+}
+
+let idleTimer;
+
+function resetIdle(){
+
+clearTimeout(idleTimer);
+
+idleTimer=setTimeout(function(){
+
+document.getElementById('popup').style.display='none';
+
+},30000);
+
+}
+
+document.addEventListener('click',resetIdle);
+document.addEventListener('touchstart',resetIdle);
+
+resetIdle();
+
+</script>
+
+</body>
+</html>
