@@ -3,22 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Transparent LCDx Advertisement</title>
+<title>Temasek Polytechnic Interactive Showcase</title>
 
 <style>
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
-body{
-    width:100vw;
-    height:100vh;
+html, body{
+    width:100%;
+    height:100%;
     overflow:hidden;
-    # background:rgba(0,0,0,0);
-    background:rgba(255,255,255,0.2);
-    font-family:Arial,sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:black;
 }
 
 #videoContainer{
@@ -46,39 +49,59 @@ body{
     justify-content:center;
     align-items:center;
     color:white;
+    text-align:center;
     text-shadow:2px 2px 10px black;
 }
 
 h1{
     font-size:4rem;
-    margin-bottom:20px;
+    margin-bottom:10px;
+    letter-spacing:2px;
 }
 
-p{
+.subtitle{
     font-size:1.5rem;
-    margin-bottom:30px;
+    margin-bottom:40px;
 }
 
 .buttonPanel{
     display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
     gap:20px;
 }
 
 .touchButton{
-    padding:20px 40px;
+    min-width:220px;
+    padding:20px 30px;
     font-size:1.2rem;
     border:none;
-    border-radius:10px;
+    border-radius:12px;
     cursor:pointer;
+    transition:0.3s;
 }
 
-.product{
-    background:#0078ff;
+.touchButton:hover{
+    transform:scale(1.05);
+}
+
+.courses{
+    background:#0066cc;
     color:white;
 }
 
-.info{
-    background:#00aa55;
+.student{
+    background:#008855;
+    color:white;
+}
+
+.campus{
+    background:#9933cc;
+    color:white;
+}
+
+.apply{
+    background:#ff6600;
     color:white;
 }
 
@@ -88,20 +111,49 @@ p{
     left:50%;
     transform:translate(-50%,-50%);
     width:70%;
-    max-width:700px;
-    background:rgba(0,0,0,0.85);
+    max-width:800px;
+    background:rgba(0,0,0,0.9);
     color:white;
-    padding:30px;
-    border-radius:15px;
+    padding:35px;
+    border-radius:20px;
     display:none;
+    text-align:center;
+}
+
+#popup h2{
+    margin-bottom:20px;
+    font-size:2rem;
+}
+
+#popup p{
+    font-size:1.2rem;
+    line-height:1.6;
 }
 
 .closeBtn{
-    margin-top:20px;
-    padding:12px 25px;
+    margin-top:25px;
+    padding:15px 30px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:1rem;
 }
-</style>
 
+.qr{
+    width:180px;
+    margin-top:20px;
+}
+
+.footer{
+    position:absolute;
+    bottom:20px;
+    left:0;
+    width:100%;
+    text-align:center;
+    font-size:1rem;
+}
+
+</style>
 </head>
 
 <body>
@@ -115,31 +167,48 @@ muted
 loop
 playsinline>
 
-<source src="https://your-server.com/videos/advertisement.mp4"
-type="video/mp4">
+<source src="/videos/tp-campus.mp4" type="video/mp4">
 
 </video>
 
 <div id="overlay">
 
-<h1>YOUR BRAND testing</h1>
+<h1>TEMASEK POLYTECHNIC</h1>
 
-<p>Touch the screen to learn more</p>
+<div class="subtitle">
+Inspiring Tomorrow's Innovators
+</div>
 
 <div class="buttonPanel">
 
 <button
-class="touchButton product"
-onclick="showProduct()">
-View Product
+class="touchButton courses"
+onclick="showCourses()">
+Courses
 </button>
 
 <button
-class="touchButton info"
-onclick="showInfo()">
-Company Info
+class="touchButton student"
+onclick="showStudentLife()">
+Student Life
 </button>
 
+<button
+class="touchButton campus"
+onclick="showCampusTour()">
+Campus Tour
+</button>
+
+<button
+class="touchButton apply"
+onclick="showApplyNow()">
+Apply Now
+</button>
+
+</div>
+
+<div class="footer">
+Touch the screen to explore Temasek Polytechnic
 </div>
 
 </div>
@@ -149,6 +218,8 @@ Company Info
 <h2 id="popupTitle"></h2>
 
 <p id="popupText"></p>
+
+<div id="popupExtra"></div>
 
 <button
 class="closeBtn"
@@ -162,34 +233,52 @@ Close
 
 <script>
 
-function showProduct(){
+function openPopup(title,text,extra=""){
+    document.getElementById("popupTitle").innerHTML=title;
+    document.getElementById("popupText").innerHTML=text;
+    document.getElementById("popupExtra").innerHTML=extra;
+    document.getElementById("popup").style.display="block";
+}
 
-document.getElementById('popupTitle').innerHTML =
-'Featured Product';
+function showCourses(){
 
-document.getElementById('popupText').innerHTML =
-'This area can show product details, images, pricing, specifications, or QR codes.';
-
-document.getElementById('popup').style.display='block';
+openPopup(
+"Courses",
+"Explore diploma programmes in Engineering, Business, Design, Applied Science, Informatics & IT, and Humanities & Social Sciences."
+);
 
 }
 
-function showInfo(){
+function showStudentLife(){
 
-document.getElementById('popupTitle').innerHTML =
-'Company Information';
+openPopup(
+"Student Life",
+"Experience CCAs, overseas programmes, industry internships, competitions, leadership development and vibrant campus activities."
+);
 
-document.getElementById('popupText').innerHTML =
-'Welcome to our interactive transparent LCD experience.';
+}
 
-document.getElementById('popup').style.display='block';
+function showCampusTour(){
+
+openPopup(
+"Campus Tour",
+"Discover learning spaces, innovation labs, maker spaces, sports facilities and collaborative student environments."
+);
+
+}
+
+function showApplyNow(){
+
+openPopup(
+"Admissions",
+"Scan the QR code below or visit the admissions website for programme and application information.",
+'<img src="/images/tp-apply-qr.png" class="qr" alt="Admissions QR Code">'
+);
 
 }
 
 function closePopup(){
-
-document.getElementById('popup').style.display='none';
-
+    document.getElementById("popup").style.display="none";
 }
 
 let idleTimer;
@@ -200,18 +289,18 @@ clearTimeout(idleTimer);
 
 idleTimer=setTimeout(function(){
 
-document.getElementById('popup').style.display='none';
+closePopup();
 
 },30000);
 
 }
 
-document.addEventListener('click',resetIdle);
-document.addEventListener('touchstart',resetIdle);
+document.addEventListener("click",resetIdle);
+document.addEventListener("touchstart",resetIdle);
 
 resetIdle();
 
 </script>
 
 </body>
-</html>
+</html> 
